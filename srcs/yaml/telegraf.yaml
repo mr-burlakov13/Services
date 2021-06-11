@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: telegraf-serv
+spec:
+  selector:
+    app: telegraf
+---
+apiVersion: apps/v1
+kind: telegraf-depl
+metadata:
+  name: telegraf
+spec:
+  selector:
+    matchLabels:
+      app: telegraf
+  template:
+    metadata:
+      name: telegraf-pod
+      labels:
+        app: telegraf
+    spec:
+      containers:
+        - name: telegraf-container
+          image: telegraf_image
+          imagePullPolicy: Never
